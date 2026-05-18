@@ -77,11 +77,11 @@ const Fashion = () => {
                 <span className="italic font-light">{activeFashionHero.name.split(' ')[1]}</span> <br/> 
                 Collection
               </h1>
-              <div className="flex gap-4 mt-12">
-                <button className="bg-blue-600 text-white font-bold px-10 py-4 rounded-full shadow-xl hover:bg-blue-700 transition-all">
+              <div className="flex gap-3 md:gap-4 mt-8 md:mt-12 flex-wrap">
+                <button className="bg-blue-600 text-white font-bold px-5 py-3 md:px-10 md:py-4 rounded-full shadow-xl hover:bg-blue-700 transition-all text-[10px] md:text-xs uppercase tracking-widest shrink-0">
                   Explore Lookbook
                 </button>
-                <button className="bg-transparent border border-white text-white font-bold px-10 py-4 rounded-full hover:bg-white hover:text-slate-900 transition-all">
+                <button className="bg-transparent border border-white text-white font-bold px-5 py-3 md:px-10 md:py-4 rounded-full hover:bg-white hover:text-slate-900 transition-all text-[10px] md:text-xs uppercase tracking-widest shrink-0">
                   Shop Arrivals
                 </button>
               </div>
@@ -99,7 +99,7 @@ const Fashion = () => {
             </div>
           </div>
 
-          <div className="absolute right-0 top-0 w-1/2 h-full hidden lg:block overflow-hidden">
+          <div className="absolute right-4 bottom-16 sm:bottom-8 lg:right-0 lg:top-0 w-28 h-28 sm:w-40 sm:h-40 lg:w-1/2 lg:h-full overflow-hidden pointer-events-none lg:pointer-events-auto rounded-3xl lg:rounded-none">
             <div key={activeFashionHero.id} className="w-full h-full animate-in fade-in slide-in-from-right-20 duration-1000">
               <img 
                 src={activeFashionHero.image} 
@@ -113,12 +113,15 @@ const Fashion = () => {
 
       {/* 2. CURATED COLLECTIONS - UPDATED BENTO GRID */}
       <div className="container mx-auto px-6 py-24">
-        <div className="flex justify-between items-end mb-12">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-4">
           <div>
             <h2 className="text-4xl font-bold text-slate-900 tracking-tight">Curated Collections</h2>
             <p className="text-slate-500 mt-2">Intentional designs for every facet of modern life.</p>
           </div>
-          <button className="text-blue-600 font-bold flex items-center gap-2 hover:gap-4 transition-all">
+          <button 
+            onClick={() => document.getElementById('trending-now')?.scrollIntoView({ behavior: 'smooth' })}
+            className="text-blue-600 font-bold flex items-center gap-2 hover:gap-4 transition-all"
+          >
             View All <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </button>
         </div>
@@ -127,17 +130,20 @@ const Fashion = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 min-h-[800px]">
           
           {/* Left Side: Large Featured Collection (The Minimalism Edit) */}
-          <div className="md:col-span-7 relative rounded-[40px] overflow-hidden group shadow-2xl bg-slate-200">
+          <div className="md:col-span-7 relative rounded-[40px] overflow-hidden group shadow-2xl bg-slate-200 min-h-[450px] md:min-h-0">
             <img 
               src="/images/minimalism.png" 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
               alt="Minimalism" 
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-            <div className="absolute bottom-12 left-12 text-white max-w-md">
-              <h3 className="text-4xl font-bold mb-4">The Minimalism Edit</h3>
-              <p className="text-white/80 mb-8 font-medium">Clean lines, neutral palettes, and effortless sophistication for the modern professional.</p>
-              <button className="bg-white text-slate-900 px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-blue-600 hover:text-white transition-colors">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-auto text-white max-w-md">
+              <h3 className="text-2xl sm:text-4xl font-bold mb-2 md:mb-4 leading-tight">The Minimalism Edit</h3>
+              <p className="text-xs sm:text-sm text-white/80 mb-4 md:mb-8 font-medium">Clean lines, neutral palettes, and effortless sophistication for the modern professional.</p>
+              <button 
+                onClick={() => document.getElementById('trending-now')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-white text-slate-900 px-6 py-3 md:px-10 md:py-4 rounded-full font-black uppercase tracking-widest text-[10px] md:text-xs hover:bg-blue-600 hover:text-white transition-colors"
+              >
                 Shop Collection
               </button>
             </div>
@@ -147,32 +153,35 @@ const Fashion = () => {
           <div className="md:col-span-5 grid grid-rows-2 gap-6">
             
             {/* Urban Streetwear Card */}
-            <div className="relative rounded-[40px] overflow-hidden group shadow-xl">
+            <div className="relative rounded-[40px] overflow-hidden group shadow-xl min-h-[250px] md:min-h-0">
               <img 
                 src="/images/streetwear.png" 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                 alt="Streetwear" 
               />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
-              <div className="absolute bottom-10 left-10 text-white">
-                <h3 className="text-2xl font-bold mb-2">Urban Streetwear</h3>
-                <p className="text-xs font-black uppercase tracking-[0.2em] border-b-2 border-white inline-block pb-1 cursor-pointer">
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors"></div>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">Urban Streetwear</h3>
+                <p 
+                  onClick={() => document.getElementById('trending-now')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="text-xs font-black uppercase tracking-[0.2em] border-b-2 border-white inline-block pb-1 cursor-pointer"
+                >
                   Browse Now
                 </p>
               </div>
             </div>
 
             {/* Finishing Touch Card */}
-            <div className="relative rounded-[40px] overflow-hidden group shadow-xl">
+            <div className="relative rounded-[40px] overflow-hidden group shadow-xl min-h-[250px] md:min-h-0">
               <img 
                 src="/images/accessories.png" 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                 alt="Accessories" 
               />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
-              <div className="absolute bottom-10 left-10 text-white">
-                <h3 className="text-2xl font-bold mb-2">The Finishing Touch</h3>
-                <p className="text-sm font-medium text-white/80">Curated eyewear, watches, and leather goods.</p>
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors"></div>
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">The Finishing Touch</h3>
+                <p className="text-xs sm:text-sm font-medium text-white/80">Curated eyewear, watches, and leather goods.</p>
               </div>
             </div>
 
@@ -181,7 +190,7 @@ const Fashion = () => {
       </div>
 
       {/* 3. TRENDING NOW - FASHION EDITION */}
-      <div className="container mx-auto px-6 pb-24">
+      <div id="trending-now" className="container mx-auto px-6 pb-24">
         <div className="flex items-center gap-4 mb-12">
           <div className="w-8 h-[2px] bg-slate-900"></div>
           <h2 className="text-4xl font-bold text-slate-900 tracking-tight">Trending Now</h2>
@@ -215,9 +224,9 @@ const Fashion = () => {
           </h2>
           <div className="mt-12 flex flex-col items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-slate-800 border border-white/10 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100" className="w-full h-full object-cover" alt="Director" />
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100" className="w-full h-full object-cover" alt="Anish M" />
             </div>
-            <p className="text-[10px] font-black text-white uppercase tracking-[0.4em]">ALAN PERA • CREATIVE DIRECTOR</p>
+            <p className="text-[10px] font-black text-white uppercase tracking-[0.4em]">ANISH M • CREATIVE DIRECTOR & CHIEF DEVELOPER</p>
           </div>
         </div>
       </div>

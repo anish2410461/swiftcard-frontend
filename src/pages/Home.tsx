@@ -110,7 +110,7 @@ const Home = () => {
         <div className={`relative overflow-hidden rounded-[40px] bg-gradient-to-br ${currentProduct.gradient} min-h-[600px] flex items-center shadow-2xl transition-all duration-1000`}>
           
           {/* Animated Image Container */}
-          <div className="absolute right-0 top-0 w-1/2 h-full hidden lg:block overflow-hidden">
+          <div className="absolute right-4 bottom-16 sm:bottom-8 lg:right-0 lg:top-0 w-28 h-28 sm:w-40 sm:h-40 lg:w-1/2 lg:h-full overflow-hidden pointer-events-none lg:pointer-events-auto">
             <div 
               key={currentProduct.id}
               className="w-full h-full animate-in fade-in slide-in-from-right-20 duration-1000 ease-out"
@@ -147,11 +147,11 @@ const Home = () => {
                 ))}
               </div>
 
-              <div className="flex gap-4">
-                <button className="bg-white text-blue-700 font-black px-10 py-4 rounded-full shadow-xl hover:scale-105 transition-all text-xs uppercase tracking-widest">
+              <div className="flex gap-3 md:gap-4 flex-wrap">
+                <button className="bg-white text-blue-700 font-black px-5 py-3 md:px-10 md:py-4 rounded-full shadow-xl hover:scale-105 transition-all text-[10px] md:text-xs uppercase tracking-widest shrink-0">
                   Discover Now
                 </button>
-                <button className="bg-transparent border border-white/30 text-white font-bold px-10 py-4 rounded-full hover:bg-white/10 transition-colors text-xs uppercase tracking-widest">
+                <button className="bg-transparent border border-white/30 text-white font-bold px-5 py-3 md:px-10 md:py-4 rounded-full hover:bg-white/10 transition-colors text-[10px] md:text-xs uppercase tracking-widest shrink-0">
                   View Specs
                 </button>
               </div>

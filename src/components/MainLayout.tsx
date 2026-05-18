@@ -36,6 +36,12 @@ const Footer = () => {
             <button className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest">Join</button>
           </div>
         </div>
+        <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold text-slate-400">
+          <p>© {new Date().getFullYear()} SwiftCart. All rights reserved.</p>
+          <p className="flex items-center gap-1.5">
+            Designed & Crafted with 💙 by <span className="font-extrabold text-slate-800 tracking-tight uppercase hover:text-blue-600 transition-colors">Anish M</span>
+          </p>
+        </div>
       </div>
     </footer>
   );

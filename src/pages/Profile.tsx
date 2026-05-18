@@ -346,25 +346,25 @@ Thank you for shopping with SwiftCart!
                 </div>
 
                 <div className="space-y-6">
-                   <div className="p-6 bg-slate-50 rounded-3xl flex justify-between items-center border border-slate-100">
-                      <div>
+                   <div className="p-6 bg-slate-50 rounded-3xl flex justify-between items-center border border-slate-100 gap-4 overflow-hidden">
+                      <div className="min-w-0 flex-1">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Username</p>
-                        <p className="font-bold text-slate-900 text-lg">{userProfile?.username || displayUsername}</p>
+                        <p className="font-bold text-slate-900 text-sm sm:text-lg break-all">{userProfile?.username || displayUsername}</p>
                       </div>
-                      <span className="px-4 py-2 bg-slate-200 text-slate-500 rounded-full text-[10px] font-black uppercase tracking-widest">Read-only</span>
+                      <span className="px-3 py-1.5 sm:px-4 sm:py-2 bg-slate-200 text-slate-500 rounded-full text-[8px] sm:text-[10px] font-black uppercase tracking-widest shrink-0">Read-only</span>
                    </div>
-                   <div className="p-6 bg-slate-50 rounded-3xl flex justify-between items-center border border-slate-100">
-                      <div>
+                   <div className="p-6 bg-slate-50 rounded-3xl flex justify-between items-center border border-slate-100 gap-4 overflow-hidden">
+                      <div className="min-w-0 flex-1">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Email Address</p>
-                        <p className="font-bold text-slate-900 text-lg">{userProfile?.email || 'N/A'}</p>
+                        <p className="font-bold text-slate-900 text-sm sm:text-lg break-all">{userProfile?.email || 'N/A'}</p>
                       </div>
                    </div>
-                   <div className="p-6 bg-blue-50 rounded-3xl flex justify-between items-center border border-blue-100">
-                      <div>
+                   <div className="p-6 bg-blue-50 rounded-3xl flex justify-between items-center border border-blue-100 gap-4 overflow-hidden">
+                      <div className="min-w-0 flex-1">
                         <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-1">Account Role</p>
-                        <p className="font-black text-blue-600 text-xl">{userProfile?.role || 'USER'}</p>
+                        <p className="font-black text-blue-600 text-base sm:text-xl break-all">{userProfile?.role || 'USER'}</p>
                       </div>
-                      <span className="px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">Active</span>
+                      <span className="px-3 py-1.5 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-full text-[8px] sm:text-[10px] font-black uppercase tracking-widest shadow-sm shrink-0">Active</span>
                    </div>
                 </div>
               </div>
