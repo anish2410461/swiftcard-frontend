@@ -150,18 +150,18 @@ Thank you for shopping with SwiftCart!
                     <div key={order.id} className="bg-white rounded-[40px] border border-slate-100 shadow-sm overflow-hidden group hover:shadow-xl transition-all duration-500">
                       {/* Order Header */}
                       <div className="bg-slate-50 px-8 py-6 flex flex-wrap justify-between items-center gap-4 border-b border-slate-100">
-                        <div className="flex gap-8">
+                        <div className="grid grid-cols-2 gap-4 sm:flex sm:gap-8 w-full sm:w-auto">
                           <div>
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Order ID</p>
-                            <p className="font-bold text-slate-900">#{order.id.substring(0, 8)}...</p>
+                            <p className="font-bold text-slate-900 text-xs sm:text-base">#{order.id.substring(0, 8)}...</p>
                           </div>
                           <div>
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Placed On</p>
-                            <p className="font-bold text-slate-900">{new Date(order.orderDate).toLocaleDateString()}</p>
+                            <p className="font-bold text-slate-900 text-xs sm:text-base">{new Date(order.orderDate).toLocaleDateString()}</p>
                           </div>
-                          <div>
+                          <div className="col-span-2 sm:col-span-1">
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Total</p>
-                            <p className="font-bold text-blue-600">₹{order.totalAmount.toLocaleString()}</p>
+                            <p className="font-bold text-blue-600 text-xs sm:text-base">₹{order.totalAmount.toLocaleString()}</p>
                           </div>
                         </div>
                         <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${
@@ -203,9 +203,11 @@ Thank you for shopping with SwiftCart!
                         </div>
                         
                         {trackingOrder === order.id && (
-                          <div className="mt-6 p-6 bg-blue-50 border border-blue-100 rounded-2xl animate-in fade-in slide-in-from-top-4">
-                            <h5 className="font-black text-slate-900 text-sm tracking-widest uppercase mb-4">Shipment Status Tracker</h5>
-                            <div className="flex justify-between items-center relative">
+                          <div className="mt-6 p-4 sm:p-6 bg-blue-50 border border-blue-100 rounded-2xl animate-in fade-in slide-in-from-top-4">
+                            <h5 className="font-black text-slate-900 text-sm tracking-widest uppercase mb-6 sm:mb-4">Shipment Status Tracker</h5>
+                            
+                            {/* Horizontal Layout for Tablet & Desktop */}
+                            <div className="hidden sm:flex justify-between items-center relative">
                                <div className="absolute left-0 top-1/2 w-full h-1 bg-blue-200 -z-10 -translate-y-1/2"></div>
                                {[
                                  { step: 'Ordered', done: true },
@@ -213,11 +215,32 @@ Thank you for shopping with SwiftCart!
                                  { step: 'Shipped', done: order.status === 'DELIVERED' },
                                  { step: 'Delivered', done: order.status === 'DELIVERED' }
                                ].map((s, i) => (
-                                 <div key={i} className="flex flex-col items-center gap-2 bg-blue-50 px-2">
+                                 <div key={i} className="flex flex-col items-center gap-2 bg-blue-50 px-4">
                                     <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${s.done ? 'bg-blue-600 text-white' : 'bg-white border-2 border-blue-200 text-slate-400'}`}>
                                       {s.done ? '✓' : i + 1}
                                     </div>
-                                    <span className={`text-[10px] font-black uppercase tracking-widest ${s.done ? 'text-blue-900' : 'text-slate-400'}`}>{s.step}</span>
+                                    <span className={`text-[10px] font-black uppercase tracking-wider ${s.done ? 'text-blue-900' : 'text-slate-400'}`}>{s.step}</span>
+                                 </div>
+                               ))}
+                            </div>
+
+                            {/* Vertical Layout for Mobile */}
+                            <div className="sm:hidden flex flex-col gap-6 relative pl-6">
+                               <div className="absolute left-10 top-2 bottom-2 w-1 bg-blue-200 -z-10"></div>
+                               {[
+                                 { step: 'Ordered', done: true },
+                                 { step: 'Processing', done: true },
+                                 { step: 'Shipped', done: order.status === 'DELIVERED' },
+                                 { step: 'Delivered', done: order.status === 'DELIVERED' }
+                               ].map((s, i) => (
+                                 <div key={i} className="flex items-center gap-4 relative">
+                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs shrink-0 z-10 ${s.done ? 'bg-blue-600 text-white' : 'bg-white border-2 border-blue-200 text-slate-400'}`}>
+                                      {s.done ? '✓' : i + 1}
+                                    </div>
+                                    <div className="flex flex-col">
+                                       <span className={`text-xs font-black uppercase tracking-widest ${s.done ? 'text-blue-900' : 'text-slate-500'}`}>{s.step}</span>
+                                       <span className="text-[10px] text-slate-400 font-medium">{s.done ? 'Completed' : 'Pending'}</span>
+                                    </div>
                                  </div>
                                ))}
                             </div>

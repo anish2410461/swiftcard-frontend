@@ -131,7 +131,7 @@ const Home = () => {
               <span className="inline-block px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-bold uppercase tracking-[0.2em] mb-8 border border-white/10">
                 Premium Selection
               </span>
-              <h1 className="text-7xl font-black tracking-tighter mb-6 leading-none text-white">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter mb-6 leading-none text-white">
                 {currentProduct.name}
               </h1>
               <p className="text-xl text-blue-100 mb-12 font-light leading-relaxed">
@@ -225,13 +225,13 @@ const Home = () => {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
             {[1,2,3,4].map(i => (
-              <div key={i} className="h-64 md:h-[450px] bg-white rounded-[24px] md:rounded-[40px] animate-pulse border border-slate-50 shadow-sm p-4 md:p-8 space-y-4 md:space-y-6">
-                 <div className="h-2/3 bg-slate-50 rounded-[20px] md:rounded-[32px]"></div>
-                 <div className="space-y-3">
-                    <div className="h-4 bg-slate-50 rounded w-3/4"></div>
-                    <div className="h-3 bg-slate-50 rounded w-1/2"></div>
+              <div key={i} className="h-48 md:h-[450px] bg-white rounded-[16px] md:rounded-[40px] animate-pulse border border-slate-50 shadow-sm p-2 md:p-8 space-y-3 md:space-y-6">
+                 <div className="h-2/3 bg-slate-50 rounded-[12px] md:rounded-[32px]"></div>
+                 <div className="space-y-2">
+                    <div className="h-3 bg-slate-50 rounded w-3/4"></div>
+                    <div className="h-2 bg-slate-50 rounded w-1/2"></div>
                  </div>
               </div>
             ))}
@@ -243,7 +243,7 @@ const Home = () => {
             <p className="text-xs md:text-slate-400 font-medium uppercase tracking-tight">No products matching "{activeCategory}" found in the SwiftCart memory.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-10">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id || product._id} product={product} viewMode="tech" />
             ))}

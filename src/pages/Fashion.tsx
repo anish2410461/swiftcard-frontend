@@ -72,7 +72,7 @@ const Fashion = () => {
               <span className={`text-[10px] font-bold uppercase tracking-[0.3em] ${activeFashionHero.accentColor} px-4 py-1.5 rounded-full mb-8 inline-block`}>
                 {activeFashionHero.subtitle}
               </span>
-              <h1 className="text-8xl font-black leading-none mb-6 tracking-tighter">
+              <h1 className="text-4xl sm:text-7xl md:text-8xl font-black leading-none mb-6 tracking-tighter">
                 {activeFashionHero.name.split(' ')[0]} <br/> 
                 <span className="italic font-light">{activeFashionHero.name.split(' ')[1]}</span> <br/> 
                 Collection
@@ -188,9 +188,9 @@ const Fashion = () => {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-10">
             {[1,2,3,4].map(i => (
-              <div key={i} className="aspect-[3/4] bg-slate-100 rounded-[32px] animate-pulse"></div>
+              <div key={i} className="aspect-[3/4] bg-slate-100 rounded-[20px] sm:rounded-[32px] animate-pulse"></div>
             ))}
           </div>
         ) : fashionItems.length === 0 ? (
@@ -198,7 +198,7 @@ const Fashion = () => {
             No active Atelier collections found in memory.
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-10">
             {fashionItems.map((item) => (
               <ProductCard key={item.id || item._id} product={item} viewMode="fashion" />
             ))}

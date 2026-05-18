@@ -45,11 +45,11 @@ const Navbar = () => {
             </h1>
           </Link>
 
-          {/* Center: Department Switcher - Optimized for Mobile & Desktop */}
-          <div className="flex items-center bg-slate-100 p-1 rounded-full text-xs font-bold uppercase tracking-wider mx-2">
+          {/* Center: Department Switcher - Shown on Desktop/Tablet only in main row */}
+          <div className="hidden sm:flex items-center bg-slate-100 p-1 rounded-full text-xs font-bold uppercase tracking-wider mx-2">
             <Link 
               to="/" 
-              className={`px-3 sm:px-6 py-1.5 rounded-full transition-all duration-300 ${
+              className={`px-6 py-1.5 rounded-full transition-all duration-300 ${
                 !isFashion ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'
               }`}
             >
@@ -57,7 +57,7 @@ const Navbar = () => {
             </Link>
             <Link 
               to="/fashion" 
-              className={`px-3 sm:px-6 py-1.5 rounded-full transition-all duration-300 ${
+              className={`px-6 py-1.5 rounded-full transition-all duration-300 ${
                 isFashion ? 'bg-[#D4B996] text-white shadow-sm' : 'text-slate-500 hover:text-slate-900'
               }`}
             >
@@ -131,6 +131,28 @@ const Navbar = () => {
                 <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`} alt="Menu" />
               </button>
             )}
+          </div>
+        </div>
+
+        {/* Mobile-Only Sub-navigation for Department Switcher */}
+        <div className="sm:hidden flex justify-center pb-3 pt-1 px-4">
+          <div className="flex items-center bg-slate-100 p-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider w-full max-w-[280px]">
+            <Link 
+              to="/" 
+              className={`flex-1 text-center py-1.5 rounded-full transition-all duration-300 ${
+                !isFashion ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              Tech
+            </Link>
+            <Link 
+              to="/fashion" 
+              className={`flex-1 text-center py-1.5 rounded-full transition-all duration-300 ${
+                isFashion ? 'bg-[#D4B996] text-white shadow-sm' : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              Fashion
+            </Link>
           </div>
         </div>
 
