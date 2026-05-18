@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getOrders } from '../services/orderService';
 import { getProfile, updateProfile } from '../services/userService';
 import { useAuth } from '../context/AuthContext';
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const { username, logout } = useAuth();
   const [activeTab, setActiveTab] = useState('address');
   const [orders, setOrders] = useState<any[]>([]);
   const [userProfile, setUserProfile] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [trackingOrder, setTrackingOrder] = useState<string | null>(null);
-  const { username } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    localStorage.clear();
+    navigate('/login');
+  };
 
   const toggleTracking = (orderId: string) => {
     setTrackingOrder(trackingOrder === orderId ? null : orderId);
@@ -122,6 +130,14 @@ Thank you for shopping with SwiftCart!
                 {tab.label}
               </button>
             ))}
+
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl font-bold text-sm bg-transparent text-red-500 hover:bg-red-50 hover:text-red-600 transition-all border border-dashed border-red-200 mt-4"
+            >
+              <span>🚪</span>
+              Logout Session
+            </button>
           </div>
 
           {/* RIGHT: Dynamic Content Area */}
