@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MainLayout from "./components/MainLayout";
@@ -15,33 +15,36 @@ import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 
 function App() {
+  const token = localStorage.getItem('token');
+
   return (
     <Router>
       <ScrollToTop />
       <Routes>
-        {/* Auth Routes (Clean layout, no navbars) */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        {/* Public Guest Routes: If they have a token already, route past login straight to store */}
+        <Route path="/login" element={token ? <Navigate to="/" replace /> : <Login />} />
+        <Route path="/signup" element={token ? <Navigate to="/" replace /> : <Signup />} />
 
-        {/* Storefront Layout (Includes Navbar) */}
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/fashion" element={<Fashion />} />
-          <Route path="/products/:id" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/search" element={<Search />} />
-          
-          {/* Protected Routes inside Storefront Layout */}
-          <Route element={<ProtectedRoute />}>
+        {/* 🔒 PROTECTED SWIFTCART ROUTES (Requires active token session) */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/fashion" element={<Fashion />} />
+            <Route path="/products/:id" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/checkout" element={<Checkout />} />
+          </Route>
+          
+          {/* Admin Layout (Dedicated Admin Dashboard) */}
+          <Route element={<AdminRoute />}>
+            <Route path="/admin/*" element={<AdminDashboard />} />
           </Route>
         </Route>
 
-        {/* Admin Layout (Dedicated Admin Dashboard) */}
-        <Route element={<AdminRoute />}>
-          <Route path="/admin/*" element={<AdminDashboard />} />
-        </Route>
+        {/* Catch-all fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

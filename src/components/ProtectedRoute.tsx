@@ -1,11 +1,16 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 const ProtectedRoute = () => {
-  const { isAuthenticated } = useAuth();
+  const token = localStorage.getItem('token');
+  const location = useLocation();
 
-  // If not logged in, redirect to login page. Otherwise, render the child routes.
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  // If there is no token payload, bounce them straight to login screen instantly
+  if (!token) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // Otherwise let them view the child routes seamlessly
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
