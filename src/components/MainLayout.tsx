@@ -39,7 +39,13 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold text-slate-400">
           <p>© {new Date().getFullYear()} SwiftCart. All rights reserved.</p>
           <p className="flex items-center gap-1.5">
-            Designed & Crafted with 💙 by <span className="font-extrabold text-slate-800 tracking-tight uppercase hover:text-blue-600 transition-colors">Anish M</span>
+            Designed & Crafted with by{' '}
+            <span className="flex items-center gap-1.5 font-extrabold text-slate-800 tracking-tight uppercase hover:text-blue-600 transition-colors">
+              <span className="w-5 h-5 rounded-full overflow-hidden border border-slate-200 inline-block shadow-sm">
+                <img src="/images/anish.png" className="w-full h-full object-cover" alt="Anish M" />
+              </span>
+              Anish M
+            </span>
           </p>
         </div>
       </div>

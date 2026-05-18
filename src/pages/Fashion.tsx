@@ -224,7 +224,7 @@ const Fashion = () => {
           </h2>
           <div className="mt-12 flex flex-col items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-slate-800 border border-white/10 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100" className="w-full h-full object-cover" alt="Anish M" />
+              <img src="/images/anish.png" className="w-full h-full object-cover" alt="Anish M" />
             </div>
             <p className="text-[10px] font-black text-white uppercase tracking-[0.4em]">ANISH M • CREATIVE DIRECTOR & CHIEF DEVELOPER</p>
           </div>
