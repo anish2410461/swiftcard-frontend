@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -8,17 +8,46 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { cartCount, isCartOpen, setCartOpen } = useCart();
-  const { isAuthenticated, isAdmin, logout } = useAuth();
+  const { isAuthenticated: authIsAuthenticated, isAdmin: authIsAdmin, logout, username: authUsername } = useAuth();
   const isFashion = location.pathname.includes('fashion');
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Track the authentication and admin status locally so the component updates instantly on mount/navigation
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // Check for the token whenever the navbar mounts or the route location updates
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+    setDropdownOpen(false); // Close profile dropdown when transitioning pages
+
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const role = payload.role || payload.roles;
+        const admin = role === 'ADMIN' || role === 'ROLE_ADMIN' || (Array.isArray(role) && (role.includes('ADMIN') || role.includes('ROLE_ADMIN')));
+        setIsAdmin(admin);
+      } catch {
+        setIsAdmin(authIsAdmin);
+      }
+    } else {
+      setIsAdmin(false);
+    }
+  }, [location, authIsAuthenticated, authIsAdmin]);
+
   const handleLogout = () => {
     logout();
+    localStorage.clear(); // Wipe JWT tokens and user metadata out of storage
+    setIsAuthenticated(false);
+    setIsAdmin(false);
+    setDropdownOpen(false);
     setMobileMenuOpen(false);
-    navigate('/login');
+    navigate('/login'); // Bounce to gateway card
   };
 
   const handleSearch = (e: React.FormEvent) => {
@@ -30,7 +59,7 @@ const Navbar = () => {
     }
   };
 
-  const username = localStorage.getItem('username') || 'Ashwin';
+  const username = localStorage.getItem('username') || authUsername || 'Ashwin';
 
   return (
     <>
@@ -110,14 +139,50 @@ const Navbar = () => {
             </button>
             
             {isAuthenticated ? (
-              <>
-                <Link to="/profile" className="w-8 h-8 rounded-full border border-slate-200 overflow-hidden hidden sm:block">
-                  <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`} alt="User Profile" />
-                </Link>
-                {isAdmin && (
-                  <Link to="/admin" className="hidden sm:block text-xs font-bold uppercase text-blue-600 px-3 py-1.5 hover:bg-blue-50 rounded-xl">Admin</Link>
+              <div className="relative hidden sm:block">
+                {/* Profile Avatar Button Trigger */}
+                <button 
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="w-8 h-8 rounded-full border border-slate-200 overflow-hidden cursor-pointer block focus:outline-none"
+                >
+                  <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`} alt="User Portal Menu" />
+                </button>
+
+                {/* Account Dropdown Options Overlay Card */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-3 w-56 bg-white border border-slate-100 rounded-3xl shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="px-6 py-3 border-b border-slate-50">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Account</p>
+                      <p className="font-bold text-slate-800 truncate">{username}</p>
+                    </div>
+                    
+                    <Link 
+                      to="/profile" 
+                      onClick={() => setDropdownOpen(false)}
+                      className="block w-full text-left px-6 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-all"
+                    >
+                      📦 Profile Dashboard
+                    </Link>
+                    
+                    {isAdmin && (
+                      <Link 
+                        to="/admin" 
+                        onClick={() => setDropdownOpen(false)}
+                        className="block w-full text-left px-6 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-all border-t border-slate-50"
+                      >
+                        ⚙️ Admin Panel
+                      </Link>
+                    )}
+
+                    <button 
+                      onClick={handleLogout}
+                      className="block w-full text-left px-6 py-3 text-sm font-bold text-red-500 hover:bg-red-50 transition-all border-t border-slate-50"
+                    >
+                      🚪 Logout Session
+                    </button>
+                  </div>
                 )}
-              </>
+              </div>
             ) : (
               <Link to="/login" className="text-xs font-bold uppercase text-blue-600 px-3 py-1.5 hover:bg-blue-50 rounded-xl">Login</Link>
             )}
